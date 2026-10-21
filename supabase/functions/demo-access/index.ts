@@ -58,7 +58,7 @@ function samplePdf(): Uint8Array {
   return new TextEncoder().encode(out);
 }
 
-function json(body: unknown, status = 200) {
+function json(req: Request, body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
     headers: { ...corsFor(req), "Content-Type": "application/json" },
@@ -71,11 +71,11 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    if (req.method !== "POST") return json({ error: "Kaedah tidak dibenarkan" }, 405);
+    if (req.method !== "POST") return json(req, { error: "Kaedah tidak dibenarkan" }, 405);
 
     const body = await req.json().catch(() => ({}));
     const role = body?.role;
-    if (role !== "admin" && role !== "agent") return json({ error: "Peranan tidak sah" }, 400);
+    if (role !== "admin" && role !== "agent") return json(req, { error: "Peranan tidak sah" }, 400);
 
     const admin = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -86,7 +86,7 @@ Deno.serve(async (req: Request) => {
     const { data: settings, error: settingsError } = await admin
       .from("app_settings").select("demo_enabled").eq("id", 1).maybeSingle();
     if (settingsError) throw settingsError;
-    if (!settings?.demo_enabled) return json({ error: "Akses demo sedang dimatikan oleh pentadbir." }, 403);
+    if (!settings?.demo_enabled) return json(req, { error: "Akses demo sedang dimatikan oleh pentadbir." }, 403);
 
     const { data: existing, error: existingError } = await admin
       .from("profiles").select("id, email").eq("is_demo", true);
@@ -142,9 +142,9 @@ Deno.serve(async (req: Request) => {
     if (uploadError) console.error("demo receipt upload failed", uploadError);
 
     const account = ACCOUNTS.find((a) => a.key === role)!;
-    return json({ email: account.email, password: DEMO_PASSWORD });
+    return json(req, { email: account.email, password: DEMO_PASSWORD });
   } catch (err) {
     console.error("demo-access failed", err);
-    return json({ error: "Akses demo tidak dapat disediakan. Sila cuba lagi." }, 500);
+    return json(req, { error: "Akses demo tidak dapat disediakan. Sila cuba lagi." }, 500);
   }
 });

@@ -1,0 +1,17 @@
+{
+  "projectId": "72229770",
+  "functions": {
+    "demo-access": {
+      "hasChanged": false,
+      "hash": "d6b1a751ea297e4814c7ad96f296a6ab1786aa004e617052b15cc41dccf99c05"
+    },
+    "ical-export": {
+      "hasChanged": false,
+      "hash": "172c2ca44086dc0625f8abd8f3d8dfb96da37e1980093984c2ee51f301b3dd15"
+    },
+    "sync-ota": {
+      "hasChanged": false,
+      "hash": "a4e435011204233346fc983f9a564e09e8759fcff70fa8da58ae6bf3ce296bba"
+    }
+  }
+}
