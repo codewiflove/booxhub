@@ -42,19 +42,20 @@ export default function LoginPage() {
 
   return (
     <AuthLayout title="Selamat kembali" subtitle="Log masuk ke portal ejen Perhentian Bay Chalet.">
+      <DemoLoginBox />
       <form onSubmit={onSubmit} className="space-y-5">
         <div className="space-y-2">
           <Label htmlFor="email">Emel</Label>
           <Input id="email" type="email" required autoComplete="email" value={email}
-            onChange={(e) => setEmail(e.target.value)} placeholder="nama@agensi.com" className="h-11" />
+            onChange={(e) => setEmail(e.target.value)} placeholder="nama@agensi.com" className="h-12 sm:h-11" />
         </div>
         <div className="space-y-2">
           <Label htmlFor="password">Kata laluan</Label>
           <Input id="password" type="password" required autoComplete="current-password" value={password}
-            onChange={(e) => setPassword(e.target.value)} className="h-11" />
+            onChange={(e) => setPassword(e.target.value)} className="h-12 sm:h-11" />
         </div>
         {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
-        <Button type="submit" disabled={busy} className="h-11 w-full">
+        <Button type="submit" disabled={busy} size="lg" className="w-full">
           {busy && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Log Masuk
         </Button>
@@ -65,7 +66,6 @@ export default function LoginPage() {
           Daftar sebagai ejen
         </Link>
       </p>
-      <DemoLoginBox />
     </AuthLayout>
   );
 }

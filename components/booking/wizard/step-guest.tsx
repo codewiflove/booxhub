@@ -11,12 +11,12 @@ export function StepGuest({ state, update }: { state: WizardState; update: (patc
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="lead">Nama ketua rombongan</Label>
-          <Input id="lead" value={state.leadName} maxLength={120} className="h-11" placeholder="Nama seperti dalam IC"
+          <Input id="lead" value={state.leadName} maxLength={120} className="sm:h-11" placeholder="Nama seperti dalam IC"
             onChange={(e) => update({ leadName: e.target.value })} />
         </div>
         <div className="space-y-2">
           <Label htmlFor="leadphone">No. telefon ketua rombongan</Label>
-          <Input id="leadphone" type="tel" value={state.leadPhone} maxLength={40} className="h-11" placeholder="Pilihan"
+          <Input id="leadphone" type="tel" value={state.leadPhone} maxLength={40} className="sm:h-11" placeholder="Pilihan"
             onChange={(e) => update({ leadPhone: e.target.value })} />
         </div>
       </div>

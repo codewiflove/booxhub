@@ -146,7 +146,7 @@ export function PaymentDialog({
 
           {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
 
-          <Button type="submit" className="h-11 w-full" disabled={busy}>
+          <Button type="submit" size="lg" className="w-full" disabled={busy}>
             {busy && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Hantar resit {formatRM(selected.amount)}
           </Button>

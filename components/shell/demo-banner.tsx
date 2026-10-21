@@ -53,12 +53,12 @@ export function DemoBanner() {
 
   return (
     <div className="no-print border-b border-sand-300 bg-sand-100">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-2.5 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-10">
-        <div className="flex items-start gap-2.5 text-sm text-sand-900">
-          <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-sand-700" />
-          <p className="leading-relaxed">
-            <span className="font-semibold">Mod Demo</span> &middot; Anda sedang menguji sebagai{' '}
-            <span className="font-semibold">{isAgent ? 'Ejen' : 'Admin'}</span>. Data di sini berasingan daripada data sebenar.
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6 lg:px-10">
+        <div className="flex min-w-0 items-center gap-2 text-sm text-sand-900">
+          <FlaskConical className="h-4 w-4 shrink-0 text-sand-700" />
+          <p className="truncate leading-snug">
+            <span className="font-semibold">Demo {isAgent ? 'Ejen' : 'Admin'}</span>
+            <span className="hidden sm:inline"> &middot; Data di sini berasingan daripada data sebenar.</span>
           </p>
         </div>
         <div className="flex shrink-0 gap-2">
@@ -66,20 +66,21 @@ export function DemoBanner() {
             type="button"
             onClick={switchRole}
             disabled={busy !== null}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-ocean-900 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-ocean-800 disabled:opacity-60"
+            className="tap inline-flex h-9 items-center gap-1.5 rounded-full bg-ocean-900 px-3.5 text-xs font-semibold text-white transition-colors hover:bg-ocean-800 disabled:opacity-60"
           >
             {busy === 'switch' ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <ArrowLeftRight className="h-3.5 w-3.5" />}
-            Tukar ke {isAgent ? 'Admin' : 'Ejen'}
+            {isAgent ? 'Admin' : 'Ejen'}
           </button>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <button
                 type="button"
                 disabled={busy !== null}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-sand-400 bg-white px-3 py-1.5 text-xs font-semibold text-sand-900 transition-colors hover:bg-sand-50 disabled:opacity-60"
+                aria-label="Set semula data demo"
+                className="tap inline-flex h-9 items-center gap-1.5 rounded-full border border-sand-400 bg-white px-3 text-xs font-semibold text-sand-900 transition-colors hover:bg-sand-50 disabled:opacity-60"
               >
                 {busy === 'reset' ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <RotateCcw className="h-3.5 w-3.5" />}
-                Set Semula Data Demo
+                <span className="hidden sm:inline">Set Semula</span>
               </button>
             </AlertDialogTrigger>
             <AlertDialogContent>

@@ -62,24 +62,24 @@ export default function RegisterPage() {
         {FIELDS.map((f) => (
           <div key={f.key} className="space-y-2">
             <Label htmlFor={f.key}>{f.label}</Label>
-            <Input id={f.key} type={f.type} required value={form[f.key]} placeholder={f.placeholder} className="h-11"
+            <Input id={f.key} type={f.type} required value={form[f.key]} placeholder={f.placeholder} className="sm:h-11"
               onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} />
           </div>
         ))}
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="email">Emel</Label>
-            <Input id="email" type="email" required autoComplete="email" value={form.email} className="h-11"
+            <Input id="email" type="email" required autoComplete="email" value={form.email} className="sm:h-11"
               onChange={(e) => setForm({ ...form, email: e.target.value })} />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Kata laluan</Label>
             <Input id="password" type="password" required autoComplete="new-password" value={form.password}
-              className="h-11" onChange={(e) => setForm({ ...form, password: e.target.value })} />
+              className="sm:h-11" onChange={(e) => setForm({ ...form, password: e.target.value })} />
           </div>
         </div>
         {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
-        <Button type="submit" disabled={busy} className="h-11 w-full">
+        <Button type="submit" disabled={busy} size="lg" className="w-full">
           {busy && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Hantar Pendaftaran
         </Button>

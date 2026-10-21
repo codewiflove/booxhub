@@ -17,13 +17,13 @@ export function Stepper({
   label: string;
 }) {
   const btn =
-    'flex h-9 w-9 items-center justify-center rounded-lg border bg-background transition-colors hover:border-ocean-300 hover:bg-ocean-50 disabled:pointer-events-none disabled:opacity-40';
+    'tap flex h-11 w-11 items-center justify-center rounded-full border-2 border-ocean-100 bg-white text-ocean-800 transition-colors hover:border-ocean-300 hover:bg-ocean-50 disabled:pointer-events-none disabled:opacity-35 sm:h-10 sm:w-10';
   return (
     <div className="flex items-center gap-2" role="group" aria-label={label}>
       <button type="button" className={btn} disabled={value <= min} onClick={() => onChange(Math.max(min, value - 1))} aria-label={`Kurangkan ${label}`}>
         <Minus className="h-4 w-4" />
       </button>
-      <span className={cn('w-8 text-center font-semibold tabular', value > 0 ? 'text-ocean-950' : 'text-muted-foreground')}>{value}</span>
+      <span className={cn('w-8 text-center text-lg font-semibold tabular', value > 0 ? 'text-ocean-950' : 'text-muted-foreground')}>{value}</span>
       <button type="button" className={btn} disabled={value >= max} onClick={() => onChange(Math.min(max, value + 1))} aria-label={`Tambah ${label}`}>
         <Plus className="h-4 w-4" />
       </button>

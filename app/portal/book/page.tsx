@@ -3,13 +3,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { addDays, differenceInCalendarDays, parseISO } from 'date-fns';
-import { ArrowLeft, ArrowRight, Check, Loader2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, ChevronUp, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
+import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { PageHeader } from '@/components/shell/app-shell';
+import { SkeletonList } from '@/components/shell/stat-card';
 import { useAuth } from '@/components/auth/auth-provider';
 import { supabase } from '@/lib/supabase';
-import { friendlyError, holdHoursFor, toISODate } from '@/lib/format';
+import { formatRM, friendlyError, holdHoursFor, toISODate } from '@/lib/format';
 import type { AddonRate, AvailabilityRow, RoomType } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { StepDates } from '@/components/booking/wizard/step-dates';
@@ -45,6 +47,17 @@ export default function NewBookingPage() {
     next.snorkelChild = Math.min(next.snorkelChild, next.children);
     return next;
   });
+
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const ci = q.get('ci') ?? '';
+    const co = q.get('co') ?? '';
+    const iso = /^\d{4}-\d{2}-\d{2}$/;
+    if (!iso.test(ci) || !iso.test(co) || co <= ci) return;
+    const count = (v: string | null, min: number) => Math.min(200, Math.max(min, Number.parseInt(v ?? '', 10) || min));
+    setState((s) => ({ ...s, checkIn: ci, checkOut: co, adults: count(q.get('a'), 1), children: count(q.get('c'), 0) }));
+    setStep(1);
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -130,14 +143,32 @@ export default function NewBookingPage() {
     return <p className="rounded-2xl border bg-card p-8 text-center text-muted-foreground">Gagal memuatkan data bilik. Sila muat semula halaman.</p>;
   }
 
+  const goTo = (s: number) => { setStep(s); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const isLast = step === STEPS.length - 1;
+  const primaryAction = isLast ? submit : () => goTo(step + 1);
+  const primaryDisabled = !canNext || submitting;
+
   return (
     <>
       <PageHeader title="Tempahan Baharu" description="Harga bersih ejen dikira secara automatik mengikut musim setiap malam." />
 
-      <ol className="mb-8 grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <div className="mb-6 sm:hidden">
+        <div className="flex items-baseline justify-between text-sm">
+          <span className="font-semibold text-ocean-950">{STEPS[step]}</span>
+          <span className="text-muted-foreground">Langkah {step + 1} / {STEPS.length}</span>
+        </div>
+        <div className="mt-2 grid grid-cols-4 gap-1.5">
+          {STEPS.map((label, i) => (
+            <button key={label} type="button" disabled={i > step} onClick={() => goTo(i)} aria-label={label}
+              className={cn('h-1.5 rounded-full transition-colors duration-500', i <= step ? 'bg-ocean-600' : 'bg-ocean-100')} />
+          ))}
+        </div>
+      </div>
+
+      <ol className="mb-8 hidden grid-cols-4 gap-2 sm:grid">
         {STEPS.map((label, i) => (
           <li key={label}>
-            <button type="button" disabled={i > step} onClick={() => setStep(i)}
+            <button type="button" disabled={i > step} onClick={() => goTo(i)}
               className={cn('flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left text-sm transition-colors',
                 i === step ? 'border-ocean-600 bg-ocean-700 text-white' : i < step ? 'bg-ocean-50 text-ocean-900 hover:bg-ocean-100' : 'bg-card text-muted-foreground')}>
               <span className={cn('flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold',
@@ -154,7 +185,7 @@ export default function NewBookingPage() {
         <div key={step} className="animate-fade-up">
           {step === 0 && <StepDates state={state} update={update} holdBlocked={holdBlocked} />}
           {step === 1 && (loadingAvail
-            ? <div className="flex items-center gap-2 rounded-2xl border bg-card p-8 text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Menyemak kekosongan...</div>
+            ? <SkeletonList rows={3} />
             : <StepRooms quotes={quotes} state={state} update={update} capacity={capacity} />)}
           {step === 2 && <StepAddons state={state} update={update} addons={addons} />}
           {step === 3 && <StepGuest state={state} update={update} />}
@@ -163,26 +194,51 @@ export default function NewBookingPage() {
             <p className="mt-4 text-sm text-coral-700">Bilangan bilik yang dipilih melebihi kekosongan. Sila kurangkan.</p>
           )}
 
-          <div className="mt-8 flex items-center justify-between gap-3 border-t pt-6">
-            <Button variant="ghost" disabled={step === 0 || submitting} onClick={() => setStep((s) => s - 1)}>
+          <div className="mt-8 hidden items-center justify-between gap-3 border-t pt-6 lg:flex">
+            <Button variant="ghost" disabled={step === 0 || submitting} onClick={() => goTo(step - 1)}>
               <ArrowLeft className="mr-2 h-4 w-4" /> Kembali
             </Button>
-            {step < STEPS.length - 1 ? (
-              <Button disabled={!canNext} onClick={() => setStep((s) => s + 1)}>
-                Seterusnya <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            ) : (
-              <Button disabled={!canNext || submitting} onClick={submit} className="min-w-[180px]">
-                {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Check className="mr-2 h-4 w-4" />}
-                Hantar & Kunci Bilik
-              </Button>
-            )}
+            <Button variant={isLast ? 'cta' : 'default'} disabled={primaryDisabled} onClick={primaryAction} className="min-w-[180px]">
+              {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {isLast ? <><Check className="mr-2 h-4 w-4" /> Hantar & Kunci Bilik</> : <>Seterusnya <ArrowRight className="ml-2 h-4 w-4" /></>}
+            </Button>
           </div>
+          <div className="h-24 lg:hidden" aria-hidden />
         </div>
 
-        <aside className="lg:sticky lg:top-8 lg:self-start">
+        <aside className="hidden lg:sticky lg:top-8 lg:block lg:self-start">
           <BookingSummary state={state} quotes={quotes} totals={totals} holdHours={holdHours} />
         </aside>
+      </div>
+
+      <div className="no-print fixed inset-x-0 bottom-[calc(61px+env(safe-area-inset-bottom))] z-30 border-t border-ocean-950/5 bg-white/95 px-4 py-3 shadow-dock backdrop-blur-xl lg:hidden">
+        <div className="mx-auto flex max-w-lg items-center gap-3">
+          {step > 0 && (
+            <Button variant="outline" size="icon" className="shrink-0 rounded-full" disabled={submitting} onClick={() => goTo(step - 1)} aria-label="Kembali">
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+          )}
+          <Drawer>
+            <DrawerTrigger asChild>
+              <button type="button" className="tap min-w-0 flex-1 text-left">
+                <span className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  Jumlah bersih <ChevronUp className="h-3.5 w-3.5" />
+                </span>
+                <span className="block truncate font-display text-xl leading-tight text-ocean-950 tabular">{formatRM(totals.grand)}</span>
+                <span className="block truncate text-xs font-medium text-sand-800">Deposit 25%: {formatRM(totals.deposit)}</span>
+              </button>
+            </DrawerTrigger>
+            <DrawerContent className="max-h-[85vh]">
+              <DrawerTitle className="sr-only">Ringkasan tempahan</DrawerTitle>
+              <div className="overflow-y-auto p-4 pb-safe">
+                <BookingSummary state={state} quotes={quotes} totals={totals} holdHours={holdHours} />
+              </div>
+            </DrawerContent>
+          </Drawer>
+          <Button variant="cta" size="lg" disabled={primaryDisabled} onClick={primaryAction} className="shrink-0 rounded-full px-6">
+            {submitting ? <Loader2 className="h-5 w-5 animate-spin" /> : isLast ? 'Hantar' : 'Teruskan'}
+          </Button>
+        </div>
       </div>
     </>
   );

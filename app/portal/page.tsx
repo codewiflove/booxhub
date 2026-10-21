@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { differenceInCalendarDays, parseISO } from 'date-fns';
-import { CalendarClock, ChevronRight, Hourglass, Loader2, Plus, ShieldAlert, Wallet } from 'lucide-react';
+import { CalendarClock, ChevronRight, Hourglass, Inbox, Plus, ShieldAlert, Wallet } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { PageHeader } from '@/components/shell/app-shell';
-import { EmptyRow, Panel, StatCard } from '@/components/shell/stat-card';
+import { EmptyRow, EmptyState, Panel, SkeletonList, StatCard, StatRow } from '@/components/shell/stat-card';
 import { useAuth } from '@/components/auth/auth-provider';
+import { SearchHero } from '@/components/booking/search-hero';
 import { StatusBadge } from '@/components/booking/badges';
 import { HoldCountdown } from '@/components/booking/hold-countdown';
 import { supabase } from '@/lib/supabase';
@@ -17,9 +17,9 @@ import type { Booking } from '@/lib/types';
 
 function BookingLink({ b, children }: { b: Booking; children: React.ReactNode }) {
   return (
-    <Link href={`/portal/bookings/${b.id}`} className="group flex items-center gap-4 rounded-xl px-3 py-3 transition-colors hover:bg-muted/60">
+    <Link href={`/portal/bookings/${b.id}`} className="tap group flex min-h-[64px] items-center gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-muted/60 sm:gap-4">
       <div className="min-w-0 flex-1">
-        <p className="font-semibold text-ocean-950">{b.code} <span className="font-normal text-muted-foreground">· {b.lead_guest_name}</span></p>
+        <p className="truncate font-semibold text-ocean-950">{b.code} <span className="font-normal text-muted-foreground">· {b.lead_guest_name}</span></p>
         <p className="text-sm text-muted-foreground">{formatDate(b.check_in, 'd MMM')} - {formatDate(b.check_out, 'd MMM yyyy')}</p>
       </div>
       {children}
@@ -52,11 +52,7 @@ export default function AgentDashboard() {
 
   return (
     <>
-      <PageHeader
-        title={`Selamat datang, ${profile?.full_name?.split(' ')[0] ?? ''}`}
-        description={profile?.company_name ? `Ringkasan tempahan untuk ${profile.company_name}.` : undefined}
-        actions={<Button asChild><Link href="/portal/book"><Plus className="mr-2 h-4 w-4" /> Tempahan Baharu</Link></Button>}
-      />
+      <SearchHero name={profile?.full_name?.split(' ')[0] ?? ''} company={profile?.company_name} />
 
       {profile?.hold_blocked && (
         <div className="mb-6 flex gap-3 rounded-2xl border border-coral-200 bg-coral-50 p-4 text-sm text-coral-800">
@@ -68,16 +64,16 @@ export default function AgentDashboard() {
       {failed ? (
         <p className="rounded-2xl border bg-card p-8 text-center text-muted-foreground">Gagal memuatkan tempahan. Sila muat semula halaman.</p>
       ) : !rows ? (
-        <div className="flex justify-center py-16"><Loader2 className="h-6 w-6 animate-spin text-ocean-600" /></div>
+        <SkeletonList rows={4} />
       ) : (
         <>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <StatRow className="sm:grid-cols-3">
             <StatCard icon={Hourglass} label="Hold aktif" value={holds.length} hint="Perlu deposit sebelum tamat" tone="sand" />
             <StatCard icon={Wallet} label="Baki tertunggak" value={formatRM(outstanding)} hint={`${balances.length} tempahan`} tone="coral" />
             <StatCard icon={CalendarClock} label="Ketibaan akan datang" value={upcoming.length} hint="Tempahan disahkan" tone="green" />
-          </div>
+          </StatRow>
 
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
             <Panel title="Hold menunggu deposit">
               {holds.length === 0 ? <EmptyRow>Tiada hold aktif.</EmptyRow> : holds.map((b) => (
                 <BookingLink key={b.id} b={b}>
@@ -101,7 +97,11 @@ export default function AgentDashboard() {
 
           <Panel title="Tempahan terkini" className="mt-6"
             action={<Link href="/portal/bookings" className="text-sm font-medium text-ocean-700 hover:underline">Lihat semua</Link>}>
-            {rows.length === 0 ? <EmptyRow>Belum ada tempahan. Mulakan tempahan pertama anda.</EmptyRow> : rows.slice(0, 6).map((b) => (
+            {rows.length === 0 ? (
+              <EmptyState icon={Inbox} title="Belum ada tempahan" action={
+                <Button asChild variant="cta"><Link href="/portal/book"><Plus className="mr-2 h-4 w-4" /> Buat tempahan pertama</Link></Button>
+              }>Cari tarikh di atas dan kunci bilik untuk pelanggan anda dalam beberapa langkah.</EmptyState>
+            ) : rows.slice(0, 6).map((b) => (
               <BookingLink key={b.id} b={b}>
                 <span className="hidden font-medium tabular sm:block">{formatRM(b.grand_total)}</span>
                 <StatusBadge status={isHoldLapsed(b, hasPendingPayment(b.payments ?? [])) ? 'EXPIRED' : b.status} />

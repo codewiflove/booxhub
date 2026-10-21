@@ -52,7 +52,7 @@ export default function ProfilePage() {
             {FIELDS.map((f) => (
               <div key={f.key} className="space-y-2">
                 <Label htmlFor={f.key}>{f.label}{f.required && <span className="text-coral-600"> *</span>}</Label>
-                <Input id={f.key} value={form[f.key]} maxLength={160} className="h-11"
+                <Input id={f.key} value={form[f.key]} maxLength={160} className="sm:h-11"
                   onChange={(e) => setForm((s) => ({ ...s, [f.key]: e.target.value }))} />
               </div>
             ))}

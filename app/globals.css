@@ -4,31 +4,31 @@
 
 @layer base {
   :root {
-    --background: 40 33% 98%;
-    --foreground: 200 45% 12%;
+    --background: 38 33% 97%;
+    --foreground: 202 70% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 200 45% 12%;
+    --card-foreground: 202 70% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 200 45% 12%;
-    --primary: 196 70% 29%;
+    --popover-foreground: 202 70% 11%;
+    --primary: 197 68% 20%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 40 50% 94%;
-    --secondary-foreground: 200 45% 14%;
-    --muted: 40 25% 94%;
-    --muted-foreground: 200 12% 40%;
-    --accent: 190 60% 94%;
-    --accent-foreground: 196 70% 22%;
+    --secondary: 38 50% 94%;
+    --secondary-foreground: 202 60% 14%;
+    --muted: 38 25% 94%;
+    --muted-foreground: 202 14% 38%;
+    --accent: 190 55% 94%;
+    --accent-foreground: 197 68% 20%;
     --destructive: 0 72% 48%;
     --destructive-foreground: 0 0% 100%;
-    --border: 40 18% 87%;
-    --input: 40 18% 84%;
-    --ring: 196 70% 35%;
-    --chart-1: 196 70% 35%;
-    --chart-2: 33 52% 53%;
-    --chart-3: 12 90% 59%;
+    --border: 38 20% 88%;
+    --input: 38 18% 84%;
+    --ring: 193 70% 38%;
+    --chart-1: 193 70% 33%;
+    --chart-2: 33 55% 54%;
+    --chart-3: 10 89% 59%;
     --chart-4: 152 55% 40%;
     --chart-5: 42 92% 52%;
-    --radius: 0.75rem;
+    --radius: 0.875rem;
   }
 }
 
@@ -36,9 +36,14 @@
   * {
     @apply border-border;
   }
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground antialiased;
     line-height: 1.5;
+    overscroll-behavior-y: none;
   }
   h1,
   h2,
@@ -46,11 +51,44 @@
   h4 {
     line-height: 1.2;
   }
+  /* 16px on phones stops iOS from zooming into focused fields */
+  @media (max-width: 639px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+  }
 }
 
 @layer utilities {
   .tabular {
     font-variant-numeric: tabular-nums;
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .bottom-safe {
+    bottom: env(safe-area-inset-bottom);
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .tap {
+    @apply transition-transform duration-150 active:scale-[0.97];
+  }
+  .skeleton {
+    background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(38 30% 97%) 50%, hsl(var(--muted)) 75%);
+    background-size: 200% 100%;
+    @apply animate-shimmer rounded-xl;
+  }
+  .bg-lagoon {
+    background-image: radial-gradient(120% 90% at 100% 0%, rgba(54, 177, 200, 0.35) 0%, transparent 55%),
+      radial-gradient(90% 80% at 0% 100%, rgba(214, 169, 97, 0.28) 0%, transparent 60%),
+      linear-gradient(160deg, #0b3a4f 0%, #072434 70%);
   }
 }
 

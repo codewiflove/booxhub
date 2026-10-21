@@ -12,7 +12,7 @@ export default function AgentBookingsPage() {
       <PageHeader
         title="Tempahan Saya"
         description="Semua tempahan agensi anda, termasuk status hold dan bayaran."
-        actions={<Button asChild><Link href="/portal/book"><Plus className="mr-2 h-4 w-4" /> Tempahan Baharu</Link></Button>}
+        actions={<Button asChild className="hidden sm:inline-flex"><Link href="/portal/book"><Plus className="mr-2 h-4 w-4" /> Tempahan Baharu</Link></Button>}
       />
       <BookingTable viewer="agent" />
     </>

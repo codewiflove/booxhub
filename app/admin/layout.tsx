@@ -5,13 +5,14 @@ import {
   BedDouble,
   CalendarRange,
   ClipboardList,
+  Home,
   LayoutDashboard,
   ListChecks,
   Receipt,
   Ship,
   Users,
 } from 'lucide-react';
-import { AppShell, type NavItem } from '@/components/shell/app-shell';
+import { AppShell, type NavItem, type TabItem } from '@/components/shell/app-shell';
 import { RequireRole } from '@/components/auth/require-role';
 import { useAuth } from '@/components/auth/auth-provider';
 
@@ -30,11 +31,18 @@ const SUPER: NavItem[] = [
   { href: '/admin/addons', label: 'Harga Add-On', icon: ClipboardList },
 ];
 
+const TABS: TabItem[] = [
+  { href: '/admin', label: 'Utama', icon: Home, exact: true },
+  { href: '/admin/bookings', label: 'Tempahan', icon: ListChecks },
+  { href: '/admin/payments', label: 'Bayaran', icon: Receipt },
+  { href: '/admin/operations', label: 'Operasi', icon: Ship },
+];
+
 function Shell({ children }: { children: React.ReactNode }) {
   const { profile } = useAuth();
   const items = profile?.role === 'super_admin' ? [...COMMON, ...SUPER] : COMMON;
   return (
-    <AppShell items={items} home="/admin">
+    <AppShell items={items} tabs={TABS} moreTab home="/admin">
       {children}
     </AppShell>
   );
