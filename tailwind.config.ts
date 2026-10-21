@@ -91,6 +91,12 @@ const config: Config = {
           800: '#9d2b14',
           900: '#822918',
         },
+        surface: {
+          DEFAULT: '#f6f9fc',
+          border: '#e3e8ee',
+          ink: '#0a2540',
+          muted: '#64748d',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -107,6 +113,9 @@ const config: Config = {
         lift: '0 2px 4px rgba(7,36,52,0.04), 0 18px 40px -16px rgba(7,36,52,0.22)',
         cta: '0 10px 24px -10px rgba(244,89,58,0.6)',
         dock: '0 -8px 30px -12px rgba(7,36,52,0.18)',
+        'stripe-card': '0 1px 3px 0 rgba(6,27,49,0.04), 0 1px 2px -1px rgba(6,27,49,0.04)',
+        'stripe-hover': '0 4px 12px -2px rgba(6,27,49,0.08), 0 2px 6px -2px rgba(6,27,49,0.04)',
+        'stripe-dropdown': '0 10px 25px -5px rgba(6,27,49,0.12), 0 8px 10px -6px rgba(6,27,49,0.06)',
       },
       keyframes: {
         'slide-up': {

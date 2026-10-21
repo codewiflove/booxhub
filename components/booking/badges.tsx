@@ -4,12 +4,12 @@ import type { BookingStatus, PaymentStatus, Season } from '@/lib/types';
 
 const base = 'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-0.5 text-xs font-semibold';
 
-export function StatusBadge({ status, className }: { status: BookingStatus; className?: string }) {
+export function StatusBadge({ status, short, className }: { status: BookingStatus; short?: boolean; className?: string }) {
   const meta = STATUS_META[status];
-  return <span className={cn(base, meta.className, className)}>{meta.label}</span>;
+  return <span className={cn(base, meta.className, className)}>{short ? meta.short : meta.label}</span>;
 }
 
-export function PaymentStatusBadge({ status }: { status: PaymentStatus }) {
+export function PaymentStatusBadge({ status, className }: { status: PaymentStatus; className?: string }) {
   const meta = PAYMENT_STATUS_META[status];
   return <span className={cn(base, meta.className)}>{meta.label}</span>;
 }

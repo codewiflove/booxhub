@@ -64,12 +64,37 @@ export const SEASON_META: Record<Season, { label: string; short: string; classNa
   },
 };
 
-export const STATUS_META: Record<BookingStatus, { label: string; className: string }> = {
-  PENDING_DEPOSIT: { label: 'Menunggu Deposit', className: 'bg-amber-50 text-amber-800 border-amber-200' },
-  CONFIRMED_PARTIAL: { label: 'Disahkan (Deposit)', className: 'bg-ocean-50 text-ocean-800 border-ocean-200' },
-  FULLY_PAID: { label: 'Dibayar Penuh', className: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
-  EXPIRED: { label: 'Tamat Tempoh', className: 'bg-slate-100 text-slate-600 border-slate-200' },
-  CANCELLED: { label: 'Dibatalkan', className: 'bg-red-50 text-red-700 border-red-200' },
+export const STATUS_META: Record<BookingStatus, { label: string; short: string; className: string; action: string }> = {
+  PENDING_DEPOSIT: {
+    label: 'Menunggu Deposit',
+    short: 'Deposit',
+    className: 'bg-amber-50 text-amber-800 border-amber-200',
+    action: 'Bilik dikunci sementara menunggu resit deposit 25%. Muat naik resit sebelum tempoh tamat.',
+  },
+  CONFIRMED_PARTIAL: {
+    label: 'Disahkan (Deposit)',
+    short: 'Deposit Diterima',
+    className: 'bg-ocean-50 text-ocean-800 border-ocean-200',
+    action: 'Tempahan disahkan. Baki 75% perlu dijelaskan sebelum tarikh akhir.',
+  },
+  FULLY_PAID: {
+    label: 'Dibayar Penuh',
+    short: 'Selesai',
+    className: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+    action: 'Selesai — sedia untuk daftar masuk.',
+  },
+  EXPIRED: {
+    label: 'Tamat Tempoh',
+    short: 'Tamat',
+    className: 'bg-slate-100 text-slate-600 border-slate-200',
+    action: 'Tempahan tamat tempoh kerana resit deposit tidak dihantar dalam masa.',
+  },
+  CANCELLED: {
+    label: 'Dibatalkan',
+    short: 'Batal',
+    className: 'bg-red-50 text-red-700 border-red-200',
+    action: 'Tempahan dibatalkan.',
+  },
 };
 
 export const PAYMENT_KIND_LABEL: Record<PaymentKind, string> = {
@@ -78,10 +103,10 @@ export const PAYMENT_KIND_LABEL: Record<PaymentKind, string> = {
   FULL_100: 'Bayaran Penuh 100%',
 };
 
-export const PAYMENT_STATUS_META: Record<PaymentStatus, { label: string; className: string }> = {
-  PENDING: { label: 'Sedang Disemak', className: 'bg-amber-50 text-amber-800 border-amber-200' },
-  VERIFIED: { label: 'Disahkan', className: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
-  REJECTED: { label: 'Ditolak', className: 'bg-red-50 text-red-700 border-red-200' },
+export const PAYMENT_STATUS_META: Record<PaymentStatus, { label: string; className: string; action: string }> = {
+  PENDING: { label: 'Sedang Disemak', className: 'bg-amber-50 text-amber-800 border-amber-200', action: 'Resit diterima & bilik kekal selamat. Pasukan kewangan sedang menyemak.' },
+  VERIFIED: { label: 'Disahkan', className: 'bg-emerald-50 text-emerald-800 border-emerald-200', action: 'Bayaran disahkan. Baki atau tempahan telah dikemas kini.' },
+  REJECTED: { label: 'Ditolak', className: 'bg-red-50 text-red-700 border-red-200', action: 'Pengesahan bayaran tidak berjaya. Sila muat naik semula resit yang jelas.' },
 };
 
 export const VAN_LABEL = { none: 'Tiada', one_way: 'Sehala', return: 'Dua Hala' } as const;
