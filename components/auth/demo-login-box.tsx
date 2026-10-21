@@ -9,14 +9,14 @@ const OPTIONS: { role: DemoRole; title: string; desc: string; icon: typeof Shiel
   {
     role: 'admin',
     title: 'Masuk sebagai Admin',
-    desc: 'Sahkan resit, lulus ejen baharu, lihat manifest ketibaan & ubah harga.',
+    desc: 'Lihat 33 ejen & jualan Mei–Sep, sahkan resit, lulus ejen baharu dan semak manifest ketibaan.',
     icon: ShieldCheck,
     tone: 'bg-ocean-900 text-white',
   },
   {
     role: 'agent',
     title: 'Masuk sebagai Ejen',
-    desc: 'Buat tempahan, muat naik resit, cetak proforma & baucar tetamu.',
+    desc: 'Masuk sebagai BLUE STAR: buat tempahan, muat naik resit, cetak proforma & baucar tetamu.',
     icon: Briefcase,
     tone: 'bg-sand-200 text-ocean-950',
   },

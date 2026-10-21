@@ -78,7 +78,30 @@ Deno.serve(async (req: Request) => {
     const { data: existing, error: existingError } = await admin
       .from("profiles").select("id, email").eq("is_demo", true);
     if (existingError) throw existingError;
-    const byEmail = new Map((existing ?? []).map((p) => [p.email, p.id as string]));
+    const byEmail = new Map((existing ?? []).map((p: { id: string; email: string }) => [p.email, p.id]));
+
+    const { data: directory, error: directoryError } = await admin
+      .from("demo_agent_directory").select("email, full_name");
+    if (directoryError) throw directoryError;
+    const loginEmails = new Set(ACCOUNTS.map((a) => a.email));
+    const missing = (directory ?? []).filter(
+      (d: { email: string }) => !loginEmails.has(d.email) && !byEmail.has(d.email),
+    );
+    for (let i = 0; i < missing.length; i += 8) {
+      const results = await Promise.all(
+        missing.slice(i, i + 8).map((d: { email: string; full_name: string }) =>
+          admin.auth.admin.createUser({
+            email: d.email,
+            password: crypto.randomUUID() + "Aa1!",
+            email_confirm: true,
+            app_metadata: { demo: true },
+            user_metadata: { full_name: d.full_name },
+          })
+        ),
+      );
+      const failed = results.find((r) => r.error);
+      if (failed?.error) throw failed.error;
+    }
 
     for (const acc of ACCOUNTS) {
       const id = byEmail.get(acc.email);
