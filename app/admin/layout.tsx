@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  BarChart3,
   BedDouble,
   CalendarRange,
   ClipboardList,
@@ -19,6 +20,7 @@ const COMMON: NavItem[] = [
   { href: '/admin/bookings', label: 'Semua Tempahan', icon: ListChecks },
   { href: '/admin/payments', label: 'Semakan Bayaran', icon: Receipt },
   { href: '/admin/operations', label: 'Operasi Harian', icon: Ship },
+  { href: '/admin/reports', label: 'Laporan Jualan', icon: BarChart3 },
 ];
 
 const SUPER: NavItem[] = [
