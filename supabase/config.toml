@@ -1,2 +1,8 @@
 [functions.demo-access]
 verify_jwt = false
+
+[functions.ical-export]
+verify_jwt = false
+
+[functions.sync-ota]
+verify_jwt = false

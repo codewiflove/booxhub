@@ -8,7 +8,7 @@ import { RequireRole } from '@/components/auth/require-role';
 import { useAuth } from '@/components/auth/auth-provider';
 import { BookingPricing } from '@/components/booking/booking-pricing';
 import { fetchBookingBundle } from '@/lib/bookings';
-import { COMPANY } from '@/lib/company';
+import { fetchCompanySettings, type CompanyInfo } from '@/lib/company';
 import { formatDate, formatDateTime, STATUS_META, VAN_LABEL } from '@/lib/format';
 import type { Booking } from '@/lib/types';
 
@@ -32,16 +32,16 @@ function StayFacts({ b }: { b: Booking }) {
   );
 }
 
-function Proforma({ b }: { b: Booking }) {
+function Proforma({ b, company }: { b: Booking; company: CompanyInfo }) {
   return (
     <>
       <header className="flex flex-wrap items-start justify-between gap-6 border-b pb-6">
         <div className="flex items-center gap-3">
           <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-ocean-700 text-white"><Sailboat className="h-6 w-6" /></span>
           <div>
-            <p className="font-display text-xl text-ocean-950">{COMPANY.legalName}</p>
-            <p className="text-xs text-slate-500">{COMPANY.address}</p>
-            <p className="text-xs text-slate-500">{COMPANY.phone} · {COMPANY.email}</p>
+            <p className="font-display text-xl text-ocean-950">{company.legal_name}</p>
+            <p className="text-xs text-slate-500">{company.address}</p>
+            <p className="text-xs text-slate-500">{company.phone} · {company.email}</p>
           </div>
         </div>
         <div className="text-right">
@@ -63,7 +63,7 @@ function Proforma({ b }: { b: Booking }) {
       <section className="py-6"><BookingPricing booking={b} /></section>
       <section className="rounded-2xl border border-ocean-200 bg-ocean-50/60 p-5 text-sm">
         <p className="font-semibold text-ocean-950">Butiran bayaran</p>
-        <p className="mt-2 text-slate-700">{COMPANY.bank.name} · {COMPANY.bank.account} · {COMPANY.bank.holder}</p>
+        <p className="mt-2 text-slate-700">{company.bank_name} · {company.bank_account} · {company.bank_holder}</p>
         <p className="mt-1 text-slate-700">Sila nyatakan rujukan <strong>{b.code}</strong> dan muat naik resit di portal ejen.</p>
         <p className="mt-3 text-xs text-slate-500">
           Deposit 25% diperlukan untuk mengesahkan tempahan. Baki 75% perlu dijelaskan sebelum {formatDate(b.balance_due_date)}. Harga adalah kadar bersih ejen dan sulit.
@@ -73,7 +73,7 @@ function Proforma({ b }: { b: Booking }) {
   );
 }
 
-function Voucher({ b }: { b: Booking }) {
+function Voucher({ b, company }: { b: Booking; company: CompanyInfo }) {
   return (
     <>
       <header className="flex flex-wrap items-start justify-between gap-6 border-b pb-6">
@@ -91,8 +91,8 @@ function Voucher({ b }: { b: Booking }) {
       </section>
       <section className="border-b py-6">
         <Field label="Penginapan">
-          {COMPANY.name}
-          <p className="text-xs font-normal text-slate-500">{COMPANY.address}</p>
+          {company.name}
+          <p className="text-xs font-normal text-slate-500">{company.address}</p>
         </Field>
         <ul className="mt-4 space-y-1 text-sm text-slate-800">
           {(b.booking_rooms ?? []).map((r) => <li key={r.id}>{r.quantity} x {r.room_name}</li>)}
@@ -122,15 +122,18 @@ function Voucher({ b }: { b: Booking }) {
 function PrintInner({ id, doc }: { id: string; doc: 'proforma' | 'voucher' }) {
   const { profile } = useAuth();
   const [booking, setBooking] = useState<Booking | null | undefined>(undefined);
+  const [company, setCompany] = useState<CompanyInfo | null>(null);
 
   useEffect(() => {
     (async () => {
       try {
-        const { booking } = await fetchBookingBundle(id);
-        setBooking(booking);
+        const [bundle, settings] = await Promise.all([fetchBookingBundle(id), fetchCompanySettings()]);
+        setBooking(bundle.booking);
+        setCompany(settings);
       } catch (e) {
         console.error(e);
         setBooking(null);
+        setCompany(await fetchCompanySettings());
       }
     })();
   }, [id]);
@@ -149,7 +152,7 @@ function PrintInner({ id, doc }: { id: string; doc: 'proforma' | 'voucher' }) {
       <div className="mx-auto max-w-3xl bg-white p-8 shadow-sm sm:rounded-2xl sm:p-12 print:max-w-none print:p-0 print:shadow-none">
         {booking === undefined ? (
           <div className="flex justify-center py-20"><Loader2 className="h-6 w-6 animate-spin text-ocean-600" /></div>
-        ) : booking === null ? (
+        ) : booking === null || company === null ? (
           <p className="py-20 text-center text-slate-500">Tempahan tidak dijumpai.</p>
         ) : doc === 'voucher' && !confirmed ? (
           <div className="flex flex-col items-center gap-3 py-20 text-center">
@@ -157,7 +160,7 @@ function PrintInner({ id, doc }: { id: string; doc: 'proforma' | 'voucher' }) {
             <p className="font-semibold text-slate-900">Baucar belum tersedia</p>
             <p className="max-w-sm text-sm text-slate-500">Baucar tetamu hanya boleh dijana selepas deposit disahkan.</p>
           </div>
-        ) : doc === 'voucher' ? <Voucher b={booking} /> : <Proforma b={booking} />}
+        ) : doc === 'voucher' ? <Voucher b={booking} company={company} /> : <Proforma b={booking} company={company} />}
       </div>
     </div>
   );

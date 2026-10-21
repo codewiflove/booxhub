@@ -66,6 +66,7 @@ export interface AvailabilityRow {
   room_type_id: string;
   total_units: number;
   booked: number;
+  blocked: number;
   available: number;
   season: Season;
   rate: number;

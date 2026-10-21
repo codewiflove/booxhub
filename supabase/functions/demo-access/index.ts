@@ -6,7 +6,20 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Client-Info, Apikey",
 };
 
-const DEMO_PASSWORD = "DemoPerhentian2026!";
+// Boleh dihadkan kepada domain produksi melalui pemboleh ubah persekitaran
+// DEMO_ALLOWED_ORIGINS, contoh: "https://portal.example.com,https://staging.example.com"
+const ALLOWED_ORIGINS = Deno.env.get("DEMO_ALLOWED_ORIGINS") ?? "*";
+
+function corsFor(req: Request) {
+  if (ALLOWED_ORIGINS === "*") return corsHeaders;
+  const origin = req.headers.get("origin");
+  if (origin && ALLOWED_ORIGINS.split(",").map((o) => o.trim()).includes(origin)) {
+    return { ...corsHeaders, "Access-Control-Allow-Origin": origin };
+  }
+  return corsHeaders;
+}
+
+const DEMO_PASSWORD = Deno.env.get("DEMO_PASSWORD") ?? "DemoPerhentian2026!";
 
 const ACCOUNTS = [
   { key: "admin", email: "admin@demo.perhentianbay.my", full_name: "Demo Admin" },
@@ -48,13 +61,13 @@ function samplePdf(): Uint8Array {
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
+    headers: { ...corsFor(req), "Content-Type": "application/json" },
   });
 }
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
-    return new Response(null, { status: 200, headers: corsHeaders });
+    return new Response(null, { status: 200, headers: corsFor(req) });
   }
 
   try {

@@ -4,11 +4,13 @@ import {
   BarChart3,
   BedDouble,
   CalendarRange,
+  CalendarClock,
   ClipboardList,
   Home,
   LayoutDashboard,
   ListChecks,
   Receipt,
+  Settings,
   Ship,
   Users,
 } from 'lucide-react';
@@ -29,6 +31,8 @@ const SUPER: NavItem[] = [
   { href: '/admin/rooms', label: 'Bilik & Harga', icon: BedDouble },
   { href: '/admin/seasons', label: 'Kalendar Musim', icon: CalendarRange },
   { href: '/admin/addons', label: 'Harga Add-On', icon: ClipboardList },
+  { href: '/admin/blocks', label: 'Blok Bilik & OTA', icon: CalendarClock },
+  { href: '/admin/settings', label: 'Tetapan Syarikat', icon: Settings },
 ];
 
 const TABS: TabItem[] = [
