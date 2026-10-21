@@ -28,7 +28,7 @@
     --chart-3: 10 89% 59%;
     --chart-4: 152 55% 40%;
     --chart-5: 42 92% 52%;
-    --radius: 0.875rem;
+    --radius: 0.5rem;
   }
 }
 
@@ -83,7 +83,7 @@
   .skeleton {
     background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(38 30% 97%) 50%, hsl(var(--muted)) 75%);
     background-size: 200% 100%;
-    @apply animate-shimmer rounded-xl;
+    @apply animate-shimmer rounded-md;
   }
   .bg-lagoon {
     background-image: radial-gradient(120% 90% at 100% 0%, rgba(54, 177, 200, 0.35) 0%, transparent 55%),

@@ -52,7 +52,7 @@ export function HoldCountdown({
           <div key={l as string} className="text-center">
             <div
               className={cn(
-                'min-w-[64px] rounded-xl px-3 py-2 font-display text-3xl',
+                'min-w-[64px] rounded-xl px-3 py-2 font-sans text-3xl',
                 expired ? 'bg-slate-100 text-slate-400' : urgent ? 'bg-coral-50 text-coral-700' : 'bg-white text-ocean-900 shadow-sm'
               )}
             >

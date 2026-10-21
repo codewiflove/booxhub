@@ -39,13 +39,13 @@ function Proforma({ b, company }: { b: Booking; company: CompanyInfo }) {
         <div className="flex items-center gap-3">
           <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-ocean-700 text-white"><Sailboat className="h-6 w-6" /></span>
           <div>
-            <p className="font-display text-xl text-ocean-950">{company.legal_name}</p>
+            <p className="font-sans text-xl text-ocean-950">{company.legal_name}</p>
             <p className="text-xs text-slate-500">{company.address}</p>
             <p className="text-xs text-slate-500">{company.phone} · {company.email}</p>
           </div>
         </div>
         <div className="text-right">
-          <p className="font-display text-3xl text-ocean-950">Invois Proforma</p>
+          <p className="font-sans text-3xl text-ocean-950">Invois Proforma</p>
           <p className="text-sm text-slate-600">No. {b.code}</p>
           <p className="text-xs text-slate-500">Tarikh: {formatDateTime(b.created_at)}</p>
           <p className="mt-1 text-xs font-semibold text-slate-700">Status: {STATUS_META[b.status].label}</p>
@@ -61,7 +61,7 @@ function Proforma({ b, company }: { b: Booking; company: CompanyInfo }) {
       </section>
       <section className="border-b py-6"><StayFacts b={b} /></section>
       <section className="py-6"><BookingPricing booking={b} /></section>
-      <section className="rounded-2xl border border-ocean-200 bg-ocean-50/60 p-5 text-sm">
+      <section className="rounded-lg border border-ocean-200 bg-ocean-50/60 p-5 text-sm">
         <p className="font-semibold text-ocean-950">Butiran bayaran</p>
         <p className="mt-2 text-slate-700">{company.bank_name} · {company.bank_account} · {company.bank_holder}</p>
         <p className="mt-1 text-slate-700">Sila nyatakan rujukan <strong>{b.code}</strong> dan muat naik resit di portal ejen.</p>
@@ -78,11 +78,11 @@ function Voucher({ b, company }: { b: Booking; company: CompanyInfo }) {
     <>
       <header className="flex flex-wrap items-start justify-between gap-6 border-b pb-6">
         <div>
-          <p className="font-display text-2xl text-slate-900">{b.profiles?.company_name}</p>
+          <p className="font-sans text-2xl text-slate-900">{b.profiles?.company_name}</p>
           <p className="text-xs text-slate-500">{b.profiles?.phone} · {b.profiles?.email}</p>
         </div>
         <div className="text-right">
-          <p className="font-display text-3xl text-slate-900">Baucar Penginapan</p>
+          <p className="font-sans text-3xl text-slate-900">Baucar Penginapan</p>
           <p className="text-sm text-slate-600">Ruj. {b.code}</p>
         </div>
       </header>
@@ -149,7 +149,7 @@ function PrintInner({ id, doc }: { id: string; doc: 'proforma' | 'voucher' }) {
           <Button onClick={() => window.print()}><Printer className="mr-2 h-4 w-4" /> Cetak / Simpan PDF</Button>
         )}
       </div>
-      <div className="mx-auto max-w-3xl bg-white p-8 shadow-sm sm:rounded-2xl sm:p-12 print:max-w-none print:p-0 print:shadow-none">
+      <div className="mx-auto max-w-3xl bg-white p-8 shadow-sm sm:rounded-lg sm:p-12 print:max-w-none print:p-0 print:shadow-none">
         {booking === undefined ? (
           <div className="flex justify-center py-20"><Loader2 className="h-6 w-6 animate-spin text-ocean-600" /></div>
         ) : booking === null || company === null ? (

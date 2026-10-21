@@ -17,7 +17,7 @@ export function BookingSummary({
 }) {
   const selected = quotes.filter((q) => (state.rooms[q.room.id] ?? 0) > 0);
   return (
-    <div className="rounded-2xl border bg-card p-6 shadow-sm">
+    <div className="rounded-lg border bg-card p-6 shadow-sm">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ocean-600">Ringkasan</p>
       {state.checkIn && state.checkOut ? (
         <p className="mt-2 font-semibold text-ocean-950">
@@ -50,7 +50,7 @@ export function BookingSummary({
       <div className="mt-4 border-t pt-4">
         <div className="flex items-end justify-between">
           <span className="text-sm font-semibold text-ocean-950">Jumlah bersih</span>
-          <span className="font-display text-3xl text-ocean-950 tabular">{formatRM(totals.grand)}</span>
+          <span className="font-sans text-3xl text-ocean-950 tabular">{formatRM(totals.grand)}</span>
         </div>
         <div className="mt-3 flex justify-between rounded-xl bg-sand-50 px-4 py-3 text-sm ring-1 ring-sand-200">
           <span className="font-semibold text-sand-800">Deposit 25%</span>

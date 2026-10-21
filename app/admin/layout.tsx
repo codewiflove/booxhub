@@ -14,7 +14,7 @@ import {
   Ship,
   Users,
 } from 'lucide-react';
-import { AppShell, type NavItem, type TabItem } from '@/components/shell/app-shell';
+import { AppShell, type NavItem, type NavSection, type TabItem } from '@/components/shell/app-shell';
 import { RequireRole } from '@/components/auth/require-role';
 import { useAuth } from '@/components/auth/auth-provider';
 
@@ -44,9 +44,16 @@ const TABS: TabItem[] = [
 
 function Shell({ children }: { children: React.ReactNode }) {
   const { profile } = useAuth();
-  const items = profile?.role === 'super_admin' ? [...COMMON, ...SUPER] : COMMON;
+  const sections: NavSection[] =
+    profile?.role === 'super_admin'
+      ? [
+          { label: 'Operasi', items: COMMON },
+          { label: 'Tetapan', items: SUPER },
+        ]
+      : [{ label: 'Operasi', items: COMMON }];
+  const items = [...COMMON, ...SUPER.filter(() => profile?.role === 'super_admin')];
   return (
-    <AppShell items={items} tabs={TABS} moreTab home="/admin">
+    <AppShell sections={sections} items={items} tabs={TABS} moreTab home="/admin">
       {children}
     </AppShell>
   );

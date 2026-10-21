@@ -14,7 +14,7 @@ function Card({ icon: Icon, title, subtitle, active, children }: {
   icon: typeof Ship; title: string; subtitle: string; active: boolean; children: React.ReactNode;
 }) {
   return (
-    <div className={cn('rounded-2xl border bg-card p-5 transition-all duration-300', active && 'border-ocean-400 bg-ocean-50/30 shadow-sm')}>
+    <div className={cn('rounded-lg border bg-card p-5 transition-all duration-300', active && 'border-ocean-400 bg-ocean-50/30 shadow-sm')}>
       <div className="flex items-start gap-4">
         <span className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors', active ? 'bg-ocean-700 text-white' : 'bg-ocean-50 text-ocean-700')}>
           <Icon className="h-5 w-5" />

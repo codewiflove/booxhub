@@ -90,7 +90,7 @@ export function PaymentDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle className="font-display text-2xl text-ocean-950">Hantar bayaran</DialogTitle>
+          <DialogTitle className="font-sans text-2xl text-ocean-950">Hantar bayaran</DialogTitle>
           <DialogDescription>Tempahan {booking.code}. Jumlah ditetapkan oleh sistem.</DialogDescription>
         </DialogHeader>
         <form onSubmit={submit} className="space-y-5">

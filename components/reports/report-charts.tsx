@@ -142,7 +142,7 @@ export function RevenueMixChart({ totals }: { totals: ReportTotals }) {
         </ChartContainer>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
           <span className="text-[11px] uppercase tracking-wider text-muted-foreground">Jumlah</span>
-          <span className="font-display text-xl text-ocean-950 tabular">{compactRM(sum)}</span>
+          <span className="font-sans text-xl text-ocean-950 tabular">{compactRM(sum)}</span>
         </div>
       </div>
       <ul className="space-y-2.5">

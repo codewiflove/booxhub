@@ -47,7 +47,7 @@ export default function ProfilePage() {
     <>
       <PageHeader title="Profil Agensi" description="Nama syarikat anda akan dipaparkan pada baucar white-label untuk tetamu." />
       <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-        <form onSubmit={save} className="animate-fade-up space-y-5 rounded-2xl border bg-card p-6 shadow-sm">
+        <form onSubmit={save} className="space-y-5 rounded-lg border bg-card p-6 shadow-sm">
           <div className="grid gap-5 sm:grid-cols-2">
             {FIELDS.map((f) => (
               <div key={f.key} className="space-y-2">
@@ -63,7 +63,7 @@ export default function ProfilePage() {
             </Button>
           </div>
         </form>
-        <aside className="space-y-3 rounded-2xl border bg-ocean-950 p-6 text-ocean-50">
+        <aside className="space-y-3 rounded-lg border bg-ocean-950 p-6 text-ocean-50">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ocean-300">Akaun</p>
           <div><p className="text-sm text-ocean-300">E-mel</p><p className="break-all font-medium">{profile.email}</p></div>
           <div><p className="text-sm text-ocean-300">Ahli sejak</p><p className="font-medium">{formatDate(profile.created_at.slice(0, 10))}</p></div>

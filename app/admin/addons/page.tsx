@@ -33,7 +33,7 @@ function AddonCard({ addon, onSaved }: { addon: AddonRate; onSaved: () => void }
   };
 
   return (
-    <div className="animate-fade-up rounded-2xl border bg-card p-5 shadow-sm">
+    <div className="rounded-lg border bg-card p-5 shadow-sm">
       <div className="flex items-start gap-4">
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ocean-50 text-ocean-700"><Icon className="h-5 w-5" /></span>
         <div className="min-w-0 flex-1">

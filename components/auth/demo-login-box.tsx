@@ -45,8 +45,8 @@ export function DemoLoginBox() {
   }
 
   return (
-    <div className="mb-6 animate-fade-up">
-    <div className="rounded-3xl border border-coral-100 bg-gradient-to-br from-coral-50 via-white to-sand-50 p-4 shadow-soft sm:p-5">
+    <div className="mb-6">
+    <div className="rounded-lg border border-coral-100 bg-gradient-to-br from-coral-50 via-white to-sand-50 p-4 shadow-stripe-card sm:p-5">
       <div className="flex items-center gap-2">
         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-coral-400 to-coral-600 text-white shadow-cta">
           <Sparkles className="h-4 w-4" />
@@ -63,7 +63,7 @@ export function DemoLoginBox() {
             type="button"
             disabled={busy !== null}
             onClick={() => go(o.role)}
-            className="tap group flex min-h-[72px] items-center gap-3 rounded-2xl border border-ocean-950/[0.06] bg-white p-3 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-ocean-300 hover:shadow-lift disabled:pointer-events-none disabled:opacity-60"
+            className="tap group flex min-h-[72px] items-center gap-3 rounded-lg border border-ocean-950/[0.06] bg-white p-3 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-ocean-300 hover:shadow-stripe-card disabled:pointer-events-none disabled:opacity-60"
           >
             <span className={cn('flex h-12 w-12 shrink-0 items-center justify-center rounded-xl', o.tone)}>
               {busy === o.role ? <Loader2 className="h-5 w-5 animate-spin" /> : <o.icon className="h-5 w-5" />}

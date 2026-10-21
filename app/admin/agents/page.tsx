@@ -80,13 +80,13 @@ export default function AgentsPage() {
       {!rows ? (
         <div className="flex justify-center py-16"><Loader2 className="h-6 w-6 animate-spin text-ocean-600" /></div>
       ) : filtered.length === 0 ? (
-        <p className="rounded-2xl border bg-card p-10 text-center text-sm text-muted-foreground">Tiada pengguna dalam kategori ini.</p>
+        <p className="rounded-lg border bg-card p-10 text-center text-sm text-muted-foreground">Tiada pengguna dalam kategori ini.</p>
       ) : (
         <ul className="space-y-3">
           {filtered.map((u) => {
             const self = u.id === me?.id;
             return (
-              <li key={u.id} className="animate-fade-up rounded-2xl border bg-card p-5 shadow-sm">
+              <li key={u.id} className="rounded-lg border bg-card p-5 shadow-sm">
                 <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">

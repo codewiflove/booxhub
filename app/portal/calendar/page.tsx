@@ -70,7 +70,7 @@ export default function CalendarPage() {
           <Button variant="outline" size="icon" aria-label="Bulan sebelum" disabled={month <= thisMonth} onClick={() => setMonth((m) => addMonths(m, -1))}>
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <p className="min-w-[160px] text-center font-display text-xl capitalize text-ocean-950">{format(month, 'MMMM yyyy', { locale: ms })}</p>
+          <p className="min-w-[160px] text-center font-sans text-xl capitalize text-ocean-950">{format(month, 'MMMM yyyy', { locale: ms })}</p>
           <Button variant="outline" size="icon" aria-label="Bulan seterusnya" disabled={month >= addMonths(thisMonth, 11)} onClick={() => setMonth((m) => addMonths(m, 1))}>
             <ChevronRight className="h-4 w-4" />
           </Button>
@@ -83,11 +83,11 @@ export default function CalendarPage() {
       </div>
 
       {error ? (
-        <p className="rounded-2xl border bg-card p-8 text-center text-muted-foreground">{error}</p>
+        <p className="rounded-lg border bg-card p-8 text-center text-muted-foreground">{error}</p>
       ) : !rows ? (
-        <div className="flex justify-center rounded-2xl border bg-card py-20"><Loader2 className="h-6 w-6 animate-spin text-ocean-600" /></div>
+        <div className="flex justify-center rounded-lg border bg-card py-20"><Loader2 className="h-6 w-6 animate-spin text-ocean-600" /></div>
       ) : (
-        <div className="animate-fade-up overflow-x-auto rounded-2xl border bg-card shadow-sm">
+        <div className="overflow-x-auto rounded-lg border bg-card shadow-sm">
           <table className="w-full border-separate border-spacing-0 text-sm">
             <thead>
               <tr>

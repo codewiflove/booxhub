@@ -1,7 +1,7 @@
 'use client';
 
 import { CalendarDays, Home, LayoutDashboard, ListChecks, Plus, PlusCircle, Ticket, UserCircle } from 'lucide-react';
-import { AppShell, type NavItem, type TabItem } from '@/components/shell/app-shell';
+import { AppShell, type NavItem, type NavSection, type TabItem } from '@/components/shell/app-shell';
 import { RequireRole } from '@/components/auth/require-role';
 
 const NAV: NavItem[] = [
@@ -10,6 +10,11 @@ const NAV: NavItem[] = [
   { href: '/portal/bookings', label: 'Tempahan Saya', icon: ListChecks },
   { href: '/portal/calendar', label: 'Kalendar Bilik', icon: CalendarDays },
   { href: '/portal/profile', label: 'Profil Agensi', icon: UserCircle },
+];
+
+const SECTIONS: NavSection[] = [
+  { label: 'Tempahan', items: NAV.slice(0, 4) },
+  { label: 'Akaun', items: [NAV[4]] },
 ];
 
 const TABS: TabItem[] = [
@@ -23,7 +28,7 @@ const TABS: TabItem[] = [
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
   return (
     <RequireRole roles={['agent']}>
-      <AppShell items={NAV} tabs={TABS} home="/portal">
+      <AppShell sections={SECTIONS} items={NAV} tabs={TABS} home="/portal">
         {children}
       </AppShell>
     </RequireRole>

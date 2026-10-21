@@ -33,13 +33,13 @@ export function AgentDetailSheet({ agent, rank, totalRevenue, months, agentMonth
           <>
             <SheetHeader className="text-left">
               <p className="text-xs font-semibold uppercase tracking-wider text-ocean-600">Kedudukan #{rank}</p>
-              <SheetTitle className="font-display text-2xl text-ocean-950">{agent.company_name || agent.full_name}</SheetTitle>
+              <SheetTitle className="font-sans text-2xl text-ocean-950">{agent.company_name || agent.full_name}</SheetTitle>
               <SheetDescription>{agent.full_name}</SheetDescription>
             </SheetHeader>
 
-            <div className="mt-6 rounded-2xl bg-gradient-to-br from-ocean-800 to-ocean-950 p-5 text-white">
+            <div className="mt-6 rounded-lg bg-gradient-to-br from-ocean-800 to-ocean-950 p-5 text-white">
               <p className="text-xs uppercase tracking-wider text-ocean-200">Jumlah jualan</p>
-              <p className="mt-1 font-display text-3xl tabular">{formatRM(agent.revenue)}</p>
+              <p className="mt-1 font-sans text-3xl tabular">{formatRM(agent.revenue)}</p>
               <p className="mt-2 text-sm text-ocean-100">
                 {percent(agent.revenue, totalRevenue).toFixed(1)}% daripada jumlah jualan ejen
               </p>

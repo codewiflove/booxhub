@@ -15,7 +15,7 @@ const SELECT = 'id, code, status, check_in, check_out, nights, adults, children,
 
 function Section({ icon: Icon, title, count, children }: { icon: typeof Ship; title: string; count: string; children: React.ReactNode }) {
   return (
-    <section className="break-inside-avoid rounded-2xl border bg-card shadow-sm print:rounded-none print:shadow-none">
+    <section className="break-inside-avoid rounded-lg border bg-card shadow-sm print:rounded-none print:shadow-none">
       <div className="flex items-center justify-between border-b px-5 py-4">
         <h2 className="flex items-center gap-2 font-semibold text-ocean-950"><Icon className="h-4 w-4 text-ocean-600" /> {title}</h2>
         <span className="text-sm font-medium text-muted-foreground">{count}</span>
@@ -74,10 +74,10 @@ export default function OperationsPage() {
           <Button variant="ghost" onClick={() => setDay(toISODate(malaysiaToday()))}>Hari ini</Button>
         </div>
       </div>
-      <h1 className="mb-4 hidden font-display text-2xl print:block">Manifest Operasi · {formatDate(day, 'EEEE, d MMMM yyyy')}</h1>
+      <h1 className="mb-4 hidden font-sans text-2xl print:block">Manifest Operasi · {formatDate(day, 'EEEE, d MMMM yyyy')}</h1>
 
       {failed ? (
-        <p className="rounded-2xl border bg-card p-8 text-center text-muted-foreground">Gagal memuatkan data operasi.</p>
+        <p className="rounded-lg border bg-card p-8 text-center text-muted-foreground">Gagal memuatkan data operasi.</p>
       ) : !arrivals ? (
         <div className="flex justify-center py-16"><Loader2 className="h-6 w-6 animate-spin text-ocean-600" /></div>
       ) : (

@@ -257,7 +257,7 @@ function BlocksInner() {
       <section className="mb-8">
         <h2 className="mb-3 font-semibold text-ocean-950">Blok aktif</h2>
         {!blocks ? <SkeletonList rows={3} /> : blocks.length === 0 ? (
-          <div className="rounded-3xl border bg-card">
+          <div className="rounded-lg border bg-card">
             <EmptyState icon={CalendarOff} title="Tiada blok aktif">
               Semua unit buat masa ini terbuka untuk tempahan. Tambah blok untuk penyelenggaraan, walk-in atau tempahan OTA manual.
             </EmptyState>
@@ -267,7 +267,7 @@ function BlocksInner() {
             {blocks.map((b) => {
               const meta = SOURCE_META[b.source] ?? SOURCE_META.MANUAL_MAINTENANCE;
               return (
-                <div key={b.id} className="flex items-start justify-between gap-3 rounded-2xl border bg-card p-4 shadow-soft">
+                <div key={b.id} className="flex items-start justify-between gap-3 rounded-lg border bg-card p-4 shadow-stripe-card">
                   <div className="min-w-0">
                     <p className="font-semibold text-ocean-950">{b.room_types?.name ?? roomName(b.room_type_id)}</p>
                     <p className="text-sm text-muted-foreground">
@@ -291,7 +291,7 @@ function BlocksInner() {
       <section>
         <h2 className="mb-3 font-semibold text-ocean-950">Pautan kalendar OTA</h2>
         {!feeds ? <SkeletonList rows={2} /> : feeds.length === 0 ? (
-          <div className="rounded-3xl border bg-card">
+          <div className="rounded-lg border bg-card">
             <EmptyState icon={CalendarClock} title="Belum ada pautan OTA"
               action={<Button onClick={() => setShowFeed(true)}><Plus className="mr-2 h-4 w-4" /> Tambah pautan</Button>}>
               Tambah pautan kalendar (.ics) dari Booking.com atau Airbnb supaya tempahan luar menutup unit di sini secara automatik.
@@ -300,7 +300,7 @@ function BlocksInner() {
         ) : (
           <div className="grid gap-3 md:grid-cols-2">
             {feeds.map((f) => (
-              <div key={f.id} className="rounded-2xl border bg-card p-4 shadow-soft">
+              <div key={f.id} className="rounded-lg border bg-card p-4 shadow-stripe-card">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <p className="font-semibold text-ocean-950">{f.label || f.room_types?.name}</p>

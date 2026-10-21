@@ -22,7 +22,7 @@ export function BookingPricing({ booking }: { booking: Booking }) {
   }
 
   return (
-    <div className="rounded-2xl border bg-card p-6">
+    <div className="rounded-lg border bg-card p-6">
       <h3 className="font-semibold text-ocean-950">Pecahan harga bersih</h3>
       <div className="mt-3 divide-y">
         {Array.from(groups.values()).map((g, i) => (

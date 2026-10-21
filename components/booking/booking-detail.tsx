@@ -71,7 +71,7 @@ export function BookingDetail({ id, viewer }: { id: string; viewer: 'agent' | 's
 
   if (error) {
     return (
-      <div className="rounded-2xl border bg-card p-10 text-center">
+      <div className="rounded-lg border bg-card p-10 text-center">
         <p className="font-semibold">Tempahan tidak dapat dimuatkan.</p>
         <Button variant="outline" className="mt-4" onClick={load}>Cuba lagi</Button>
       </div>
@@ -87,7 +87,7 @@ export function BookingDetail({ id, viewer }: { id: string; viewer: 'agent' | 's
   const { booking: b, payments, events } = data;
   if (!b) {
     return (
-      <div className="rounded-2xl border bg-card p-10 text-center">
+      <div className="rounded-lg border bg-card p-10 text-center">
         <p className="font-semibold">Tempahan tidak dijumpai.</p>
         <Button asChild variant="outline" className="mt-4"><Link href={backHref}>Kembali</Link></Button>
       </div>
@@ -110,9 +110,9 @@ export function BookingDetail({ id, viewer }: { id: string; viewer: 'agent' | 's
       </Link>
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div className="animate-fade-up">
+        <div className="">
           <div className="flex flex-wrap items-center gap-3">
-            <h1 className="font-display text-3xl text-ocean-950">{b.code}</h1>
+            <h1 className="font-sans text-3xl text-ocean-950">{b.code}</h1>
             <StatusBadge status={status} />
           </div>
           <p className="mt-2 text-muted-foreground">
@@ -140,7 +140,7 @@ export function BookingDetail({ id, viewer }: { id: string; viewer: 'agent' | 's
       </div>
 
       {b.status === 'PENDING_DEPOSIT' && !lapsed && (
-        <div className="no-print overflow-hidden rounded-2xl bg-gradient-to-br from-amber-50 via-sand-50 to-white p-6 ring-1 ring-amber-200">
+        <div className="no-print overflow-hidden rounded-lg bg-gradient-to-br from-amber-50 via-sand-50 to-white p-6 ring-1 ring-amber-200">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <p className="flex items-center gap-2 text-sm font-semibold text-amber-800">
@@ -167,13 +167,13 @@ export function BookingDetail({ id, viewer }: { id: string; viewer: 'agent' | 's
       )}
 
       {lapsed && (
-        <div className="rounded-2xl bg-slate-50 p-5 text-sm text-slate-700 ring-1 ring-slate-200">
+        <div className="rounded-lg bg-slate-50 p-5 text-sm text-slate-700 ring-1 ring-slate-200">
           Tempoh hold telah tamat dan bilik telah dilepaskan. Sila buat tempahan baharu jika masih diperlukan.
         </div>
       )}
 
       {b.status === 'CONFIRMED_PARTIAL' && (
-        <div className="no-print flex flex-col gap-4 rounded-2xl bg-ocean-50/70 p-6 ring-1 ring-ocean-200 sm:flex-row sm:items-center sm:justify-between">
+        <div className="no-print flex flex-col gap-4 rounded-lg bg-ocean-50/70 p-6 ring-1 ring-ocean-200 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="font-semibold text-ocean-900">Deposit diterima. Bilik anda telah disahkan.</p>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -187,7 +187,7 @@ export function BookingDetail({ id, viewer }: { id: string; viewer: 'agent' | 's
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
-          <div className="rounded-2xl border bg-card p-6">
+          <div className="rounded-lg border bg-card p-6">
             <h3 className="font-semibold text-ocean-950">Butiran penginapan</h3>
             <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <InfoTile icon={CalendarDays} label="Check-in / Check-out" value={`${formatDate(b.check_in)} - ${formatDate(b.check_out)}`} />
@@ -206,7 +206,7 @@ export function BookingDetail({ id, viewer }: { id: string; viewer: 'agent' | 's
             {b.notes && <p className="mt-4 rounded-xl bg-sand-50 p-4 text-sm text-muted-foreground">{b.notes}</p>}
           </div>
 
-          <div className="rounded-2xl border bg-card p-6">
+          <div className="rounded-lg border bg-card p-6">
             <h3 className="font-semibold text-ocean-950">Pengangkutan & aktiviti</h3>
             <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <InfoTile icon={Ship} label="Speedboat Kuala Besut" value={b.include_boat ? `Pergi-balik, ${b.boat_adult + b.boat_child} pax` : 'Tidak termasuk'} />
@@ -223,7 +223,7 @@ export function BookingDetail({ id, viewer }: { id: string; viewer: 'agent' | 's
 
         <div className="space-y-6">
           <BookingPricing booking={b} />
-          <div className="rounded-2xl border bg-card p-6">
+          <div className="rounded-lg border bg-card p-6">
             <h3 className="font-semibold text-ocean-950">Sejarah</h3>
             <ol className="mt-4 space-y-4 border-l pl-5">
               {events.map((e) => (

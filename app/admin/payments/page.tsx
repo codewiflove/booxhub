@@ -32,11 +32,11 @@ export default function PaymentsQueuePage() {
     <>
       <PageHeader title="Semakan Bayaran" description="Sahkan resit pindahan bank. Tempahan dikemas kini serta-merta selepas pengesahan." />
       {failed ? (
-        <p className="rounded-2xl border bg-card p-8 text-center text-muted-foreground">Gagal memuatkan barisan bayaran.</p>
+        <p className="rounded-lg border bg-card p-8 text-center text-muted-foreground">Gagal memuatkan barisan bayaran.</p>
       ) : !rows ? (
         <div className="flex justify-center py-16"><Loader2 className="h-6 w-6 animate-spin text-ocean-600" /></div>
       ) : rows.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-2xl border bg-card py-16 text-center">
+        <div className="flex flex-col items-center gap-3 rounded-lg border bg-card py-16 text-center">
           <CheckCircle2 className="h-10 w-10 text-emerald-500" />
           <p className="font-semibold text-ocean-950">Semua resit telah disemak</p>
           <p className="text-sm text-muted-foreground">Resit baharu daripada ejen akan muncul di sini.</p>
@@ -44,7 +44,7 @@ export default function PaymentsQueuePage() {
       ) : (
         <ul className="space-y-4">
           {rows.map((p) => (
-            <li key={p.id} className="animate-fade-up rounded-2xl border bg-card p-5 shadow-sm">
+            <li key={p.id} className="rounded-lg border bg-card p-5 shadow-sm">
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
@@ -60,7 +60,7 @@ export default function PaymentsQueuePage() {
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <p className="font-display text-2xl tabular text-ocean-950">{formatRM(p.amount)}</p>
+                    <p className="font-sans text-2xl tabular text-ocean-950">{formatRM(p.amount)}</p>
                     {p.bookings && <p className="text-xs text-muted-foreground">daripada {formatRM(p.bookings.grand_total)}</p>}
                   </div>
                   {p.receipt_path && (

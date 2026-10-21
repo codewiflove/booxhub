@@ -74,7 +74,7 @@ function SettingsInner() {
     return (
       <>
         <PageHeader title="Tetapan Syarikat" description="Maklumat syarikat dan bank untuk proforma serta vucher." />
-        <div className="rounded-3xl border bg-card">
+        <div className="rounded-lg border bg-card">
           <EmptyState icon={Settings} title="Tetapan tidak dapat dimuatkan">
             Sila muat semula halaman ini. Jika masalah berterusan, hubungi pentadbir sistem.
           </EmptyState>
@@ -98,7 +98,7 @@ function SettingsInner() {
         actions={<Button onClick={save} disabled={saving}>{saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />} Simpan</Button>} />
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <section className="space-y-4 rounded-3xl border bg-card p-6 shadow-soft">
+        <section className="space-y-4 rounded-lg border bg-card p-6 shadow-stripe-card">
           <h2 className="font-semibold text-ocean-950">Maklumat syarikat</h2>
           <div className="space-y-1.5"><Label htmlFor="c-name">Nama dagangan</Label>
             <Input id="c-name" value={draft.name} onChange={set('name')} placeholder="Perhentian Bay Chalet" /></div>
@@ -114,7 +114,7 @@ function SettingsInner() {
           </div>
         </section>
 
-        <section className="space-y-4 rounded-3xl border bg-card p-6 shadow-soft">
+        <section className="space-y-4 rounded-lg border bg-card p-6 shadow-stripe-card">
           <h2 className="font-semibold text-ocean-950">Akaun bank (untuk bayaran)</h2>
           <p className="text-sm text-muted-foreground">
             Maklumat ini akan tertera pada proforma invois dan notifikasi baki tempahan.

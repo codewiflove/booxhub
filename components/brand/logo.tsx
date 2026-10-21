@@ -7,14 +7,14 @@ export function Logo({ light = false, href = '/' }: { light?: boolean; href?: st
     <Link href={href} className="group flex items-center gap-2">
       <span
         className={cn(
-          'flex h-9 w-9 items-center justify-center rounded-xl transition-transform duration-300 group-hover:-rotate-6',
+          'flex h-8 w-8 items-center justify-center rounded-lg transition-transform duration-200 group-hover:-rotate-6',
           light ? 'bg-white/15 text-white ring-1 ring-white/30' : 'bg-ocean-700 text-white'
         )}
       >
-        <Sailboat className="h-5 w-5" />
+        <Sailboat className="h-4 w-4" />
       </span>
       <span className="leading-tight">
-        <span className={cn('block font-display text-base', light ? 'text-white' : 'text-ocean-950')}>
+        <span className={cn('block text-sm font-semibold', light ? 'text-white' : 'text-ocean-950')}>
           Perhentian Bay
         </span>
         <span

@@ -140,7 +140,7 @@ export default function NewBookingPage() {
   };
 
   if (loadError) {
-    return <p className="rounded-2xl border bg-card p-8 text-center text-muted-foreground">Gagal memuatkan data bilik. Sila muat semula halaman.</p>;
+    return <p className="rounded-lg border bg-card p-8 text-center text-muted-foreground">Gagal memuatkan data bilik. Sila muat semula halaman.</p>;
   }
 
   const goTo = (s: number) => { setStep(s); window.scrollTo({ top: 0, behavior: 'smooth' }); };
@@ -182,7 +182,7 @@ export default function NewBookingPage() {
       </ol>
 
       <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
-        <div key={step} className="animate-fade-up">
+        <div key={step} className="">
           {step === 0 && <StepDates state={state} update={update} holdBlocked={holdBlocked} />}
           {step === 1 && (loadingAvail
             ? <SkeletonList rows={3} />
@@ -224,7 +224,7 @@ export default function NewBookingPage() {
                 <span className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                   Jumlah bersih <ChevronUp className="h-3.5 w-3.5" />
                 </span>
-                <span className="block truncate font-display text-xl leading-tight text-ocean-950 tabular">{formatRM(totals.grand)}</span>
+                <span className="block truncate font-sans text-xl leading-tight text-ocean-950 tabular">{formatRM(totals.grand)}</span>
                 <span className="block truncate text-xs font-medium text-sand-800">Deposit 25%: {formatRM(totals.deposit)}</span>
               </button>
             </DrawerTrigger>

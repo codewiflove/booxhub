@@ -53,7 +53,7 @@ export function PaymentReviewActions({ payment, onDone }: { payment: Payment; on
 
 export function PaymentList({ payments, canReview, onChanged }: { payments: Payment[]; canReview: boolean; onChanged: () => void }) {
   return (
-    <div className="rounded-2xl border bg-card p-6">
+    <div className="rounded-lg border bg-card p-6">
       <h3 className="font-semibold text-ocean-950">Bayaran</h3>
       {payments.length === 0 ? (
         <p className="mt-3 text-sm text-muted-foreground">Belum ada bayaran dihantar.</p>

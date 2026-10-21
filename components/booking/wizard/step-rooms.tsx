@@ -36,8 +36,8 @@ export function StepRooms({
             <div
               key={q.room.id}
               className={cn(
-                'grid overflow-hidden rounded-3xl border bg-card shadow-soft transition-all duration-300 sm:grid-cols-[220px_1fr]',
-                qty > 0 ? 'border-ocean-500 ring-2 ring-ocean-500/20 shadow-lift' : 'border-ocean-950/[0.06] hover:shadow-lift',
+                'grid overflow-hidden rounded-lg border bg-card shadow-stripe-card transition-all duration-300 sm:grid-cols-[220px_1fr]',
+                qty > 0 ? 'border-ocean-500 ring-2 ring-ocean-500/20 shadow-stripe-card' : 'border-ocean-950/[0.06] hover:shadow-stripe-card',
                 soldOut && 'opacity-60'
               )}
             >
@@ -55,7 +55,7 @@ export function StepRooms({
                   {soldOut ? 'Penuh' : q.minAvailable <= 2 ? `Tinggal ${q.minAvailable} bilik!` : `${q.minAvailable} unit tersedia`}
                 </span>
                 {qty > 0 && (
-                  <span className="absolute right-3 top-3 flex h-8 w-8 animate-fade-up items-center justify-center rounded-full bg-ocean-600 text-white shadow-md">
+                  <span className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-ocean-600 text-white shadow-md">
                     <Check className="h-4 w-4" />
                   </span>
                 )}
@@ -78,7 +78,7 @@ export function StepRooms({
                 </div>
                 <div className="flex shrink-0 flex-row items-center justify-between gap-4 border-t pt-4 sm:flex-col sm:items-end sm:border-0 sm:pt-0">
                   <div className="sm:text-right">
-                    <p className="font-display text-2xl text-ocean-950 tabular">
+                    <p className="font-sans text-2xl text-ocean-950 tabular">
                       {formatRM(q.perUnit / nightCount)}<span className="font-sans text-sm font-medium text-muted-foreground"> /malam</span>
                     </p>
                     <p className="text-xs text-muted-foreground">{formatRM(q.perUnit)} seunit, {q.nights.length} malam</p>
@@ -92,7 +92,7 @@ export function StepRooms({
         })}
       </div>
 
-      <div className={cn('rounded-2xl p-4 text-sm ring-1', capacity.ok ? 'bg-emerald-50 text-emerald-800 ring-emerald-200' : 'bg-amber-50 text-amber-800 ring-amber-200')}>
+      <div className={cn('rounded-lg p-4 text-sm ring-1', capacity.ok ? 'bg-emerald-50 text-emerald-800 ring-emerald-200' : 'bg-amber-50 text-amber-800 ring-amber-200')}>
         {capacity.units === 0
           ? `Pilih bilik untuk ${guests} tetamu.`
           : capacity.ok

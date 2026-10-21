@@ -114,7 +114,7 @@ function RoomsInner() {
       ) : (
         <div className="grid gap-5 md:grid-cols-2">
           {rows.map((r) => (
-            <article key={r.id} className={cn('group animate-fade-up overflow-hidden rounded-2xl border bg-card shadow-sm transition-shadow hover:shadow-md', !r.is_active && 'opacity-60')}>
+            <article key={r.id} className={cn('group overflow-hidden rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md', !r.is_active && 'opacity-60')}>
               <div className="relative h-40 overflow-hidden bg-ocean-100">
                 {r.image_url && <img src={r.image_url} alt={r.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />}
                 {!r.is_active && <span className="absolute left-3 top-3 rounded-full bg-slate-900/80 px-2.5 py-1 text-xs font-medium text-white">Tidak aktif</span>}

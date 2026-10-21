@@ -126,9 +126,9 @@ function SeasonsInner() {
         <>
           <YearStrip ranges={sorted} />
           {sorted.length === 0 ? (
-            <p className="rounded-2xl border bg-card p-10 text-center text-sm text-muted-foreground">Belum ada julat musim.</p>
+            <p className="rounded-lg border bg-card p-10 text-center text-sm text-muted-foreground">Belum ada julat musim.</p>
           ) : (
-            <ul className="divide-y rounded-2xl border bg-card shadow-sm">
+            <ul className="divide-y rounded-lg border bg-card shadow-sm">
               {sorted.map((r) => {
                 const past = r.end_date < todayISO;
                 return (

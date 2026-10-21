@@ -71,7 +71,7 @@ export default function ReportsPage() {
       </div>
 
       {failed ? (
-        <p className="rounded-2xl border bg-card p-8 text-center text-muted-foreground">Gagal memuatkan laporan. Sila cuba lagi.</p>
+        <p className="rounded-lg border bg-card p-8 text-center text-muted-foreground">Gagal memuatkan laporan. Sila cuba lagi.</p>
       ) : !report || !t ? (
         <div className="flex justify-center py-20"><Loader2 className="h-6 w-6 animate-spin text-ocean-600" /></div>
       ) : (
@@ -87,7 +87,7 @@ export default function ReportsPage() {
           </div>
 
           {top && (
-            <div className="flex animate-fade-up items-start gap-3 rounded-2xl border border-sand-200 bg-gradient-to-r from-sand-50 to-white px-5 py-4">
+            <div className="flex items-start gap-3 rounded-lg border border-sand-200 bg-gradient-to-r from-sand-50 to-white px-5 py-4">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-sand-100 text-sand-800">
                 <Sparkles className="h-4 w-4" />
               </span>
